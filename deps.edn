@@ -1,0 +1,21 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        kixi/stats {:mvn/version "0.5.5"}}
+
+ :aliases
+ {:run {:jvm-opts ["--add-modules" "jdk.incubator.vector"]
+        :ns-default n-times-faster.core
+        :exec-fn run}
+
+  :dev {:jvm-opts ["--add-modules" "jdk.incubator.vector"]}
+
+  :test {:jvm-opts ["--add-modules" "jdk.incubator.vector"]
+         :extra-paths ["test"]
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
+                      io.github.cognitect-labs/test-runner  {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+         :main-opts ["-m" "cognitect.test-runner"]
+         :exec-fn cognitect.test-runner.api/test}
+
+  :benchmark {:jvm-opts ["--add-modules" "jdk.incubator.vector"]
+              :extra-deps {criterium/criterium {:mvn/version "0.4.6"}}
+              :exec-fn n-times-faster.benchmark/benchmark}}}
